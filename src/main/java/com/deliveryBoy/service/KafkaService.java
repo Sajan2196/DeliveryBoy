@@ -11,16 +11,11 @@ import org.springframework.stereotype.Service;
 public class KafkaService {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private Logger logger = LoggerFactory.getLogger(KafkaService.class);
-
-    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
+    private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
 
     @Autowired
-    public KafkaService(KafkaTemplate<String, String> kafkaTemplate, Logger logger) {
+    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
-        this.logger = logger;
     }
 
     public boolean updateLocation(String location) {
@@ -29,4 +24,3 @@ public class KafkaService {
         return true;
     }
 }
-

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import static org.mockito.Mockito.*;
@@ -17,9 +16,6 @@ class KafkaServiceTest {
 
     @Mock
     private KafkaTemplate<String, String> kafkaTemplate;
-
-    @Mock
-    private Logger logger;
 
     @InjectMocks
     private KafkaService kafkaService;
@@ -41,7 +37,5 @@ class KafkaServiceTest {
         // Assert
         assertTrue(result, "Expected updateLocation to return true");
         verify(kafkaTemplate, times(1)).send(AppConstants.LOCATION, location);
-        verify(logger, times(1)).info("Message produced");
     }
 }
-
