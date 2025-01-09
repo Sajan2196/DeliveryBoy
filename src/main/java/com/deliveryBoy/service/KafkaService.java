@@ -10,15 +10,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaService {
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private Logger logger = LoggerFactory.getLogger(KafkaService.class);
 
-    private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
+    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    @Autowired
+    public KafkaService(KafkaTemplate<String, String> kafkaTemplate, Logger logger) {
+        this.kafkaTemplate = kafkaTemplate;
+        this.logger = logger;
+    }
 
     public boolean updateLocation(String location) {
-//        this.kafkaTemplate.send(AppConstants.LOCATION_TOPIC_NAME, location);
         this.kafkaTemplate.send(AppConstants.LOCATION, location);
         this.logger.info("Message produced");
         return true;
     }
 }
+
